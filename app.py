@@ -39,7 +39,7 @@ valid_stt_languages = {
 def home():
     return "Flask server is running!"
 
-@app.route('/api/translate', methods=['POST'])
+@app.route('/translate', methods=['POST'])
 def translate_audio():
     try:
         if "file" not in request.files:
