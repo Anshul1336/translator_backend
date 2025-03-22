@@ -12,7 +12,7 @@ import os
 # Use the dynamic port provided by Railway
 port = int(os.environ.get("PORT", 5000))
 
-app.run(host='0.0.0.0', port=port)
+
 
 
 app = Flask(__name__)
@@ -163,5 +163,5 @@ def get_translated_audio():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=False)
+    app.run(host='0.0.0.0', port=port)
 
