@@ -24,6 +24,9 @@ valid_stt_languages = {
     "hi": "Hindi",
     "bn": "Bengali",
     "gu": "Gujarati",
+  
+    "pa": "Punjabi",
+    "mr": "Marathi",
     "es": "Spanish",
     "fr": "French",
     "de": "German",
@@ -98,17 +101,7 @@ def translate_audio():
 
     except Exception as e:
         return jsonify({"error": f"Error processing audio: {str(e)}"}), 500
-
-@app.route('/get_translated_audio')
-def get_translated_audio():
-    try:
-        audio_path = os.path.join(OUTPUT_FOLDER, "translated.wav")
-        if not os.path.exists(audio_path):
-            return jsonify({"error": "Translated audio file not found"}), 404
-        return send_file(audio_path, mimetype='audio/wav')
-    except Exception as e:
-        return jsonify({"error": str(e)}), 500
-
+    
 @app.route('/speak', methods=['POST'])
 def text_to_speech():
     try:
@@ -139,15 +132,27 @@ def text_to_speech():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-# @app.route('/get_audio')
-# def get_audio():
-#     try:
-#         audio_path = os.path.join(OUTPUT_FOLDER, "output.wav")
-#         if not os.path.exists(audio_path):
-#             return jsonify({"error": "Audio file not found"}), 404
-#         return send_file(audio_path, mimetype='audio/wav')
-#     except Exception as e:
-#         return jsonify({"error": str(e)}), 500
+@app.route('/get_audio')
+def get_audio():
+    try:
+        audio_path = os.path.join(OUTPUT_FOLDER, "output.wav")
+        if not os.path.exists(audio_path):
+            return jsonify({"error": "Audio file not found"}), 404
+        return send_file(audio_path, mimetype='audio/wav')
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/get_translated_audio')
+def get_translated_audio():
+    try:
+        audio_path = os.path.join(OUTPUT_FOLDER, "translated.wav")
+        if not os.path.exists(audio_path):
+            return jsonify({"error": "Translated audio file not found"}), 404
+        return send_file(audio_path, mimetype='audio/wav')
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
 
 if __name__ == "__main__":
     app.run(debug=True, use_reloader=False)
