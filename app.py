@@ -3,9 +3,17 @@ from flask_cors import CORS
 import speech_recognition as sr
 from deep_translator import GoogleTranslator
 from gtts import gTTS
-import os
+
 from pydub import AudioSegment
 from gtts.lang import tts_langs
+
+import os
+
+# Use the dynamic port provided by Railway
+port = int(os.environ.get("PORT", 5000))
+
+app.run(host='0.0.0.0', port=port)
+
 
 app = Flask(__name__)
 CORS(app)
