@@ -13,7 +13,11 @@ import os
 port = int(os.environ.get("PORT", 5000))
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, resources={r"/*": {
+    "origins": "https://audio-translator-ten.vercel.app",
+    "methods": ["GET", "POST", "OPTIONS"],
+    "allow_headers": ["Content-Type", "Authorization", "Access-Control-Allow-Credentials"]
+}})
 
 UPLOAD_FOLDER = "uploads"
 OUTPUT_FOLDER = "outputs"
