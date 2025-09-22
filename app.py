@@ -3,9 +3,17 @@ from flask_cors import CORS
 import speech_recognition as sr
 from deep_translator import GoogleTranslator
 from gtts import gTTS
-import os
+
 from pydub import AudioSegment
 from gtts.lang import tts_langs
+
+import os
+
+# Use the dynamic port provided by Railway
+port = int(os.environ.get("PORT", 5000))
+
+
+
 
 app = Flask(__name__)
 CORS(app)
@@ -24,7 +32,6 @@ valid_stt_languages = {
     "hi": "Hindi",
     "bn": "Bengali",
     "gu": "Gujarati",
-  
     "pa": "Punjabi",
     "mr": "Marathi",
     "es": "Spanish",
@@ -39,7 +46,7 @@ valid_stt_languages = {
 def home():
     return "Flask server is running!"
 
-@app.route('/api/translate', methods=['POST'])
+@app.route('/translate', methods=['POST'])
 def translate_audio():
     try:
         if "file" not in request.files:
@@ -155,5 +162,4 @@ def get_translated_audio():
 
 
 if __name__ == "__main__":
-    app.run(debug=True, use_reloader=False)
-
+    app.run(host='0.0.0.0', port=port)
